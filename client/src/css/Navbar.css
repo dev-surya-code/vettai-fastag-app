@@ -1,332 +1,211 @@
-/* ---------- Navbar Base ---------- */
+/* ------------------------------------------------------
+   TOP NAVBAR
+------------------------------------------------------ */
 .custom-navbar {
   width: 100%;
+  background: #ffffff;
+  padding: 12px 18px;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 999;
-  backdrop-filter: blur(12px) saturate(180%);
-  background: rgba(0, 30, 60, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
-  animation: slideDown 0.6s ease;
-  color: white;
 }
 
+/* Navbar container layout */
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.8rem 1.5rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-}
-
-/* ---------- Brand ---------- */
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #00bfff;
-}
-
-.brand-icon {
-  margin-right: 10px;
-  font-size: 1.6rem;
-  color: #00bfff;
-  animation: pulseGlow 2s infinite ease-in-out;
-}
-
-/* ---------- Responsive Styles ---------- */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  .nav-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .role-toggle-btn {
-    width: 28%;
-    justify-content: center;
-  }
-}
-
-/* ---------- Animations ---------- */
-@keyframes pulseGlow {
-  0% {
-    opacity: 0.8;
-    text-shadow: 0 0 5px #00bfff;
-  }
-  50% {
-    opacity: 1;
-    text-shadow: 0 0 15px #00bfff;
-  }
-  100% {
-    opacity: 0.8;
-    text-shadow: 0 0 5px #00bfff;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Show menu button only on mobile */
-@media (max-width: 768px) {
-  .navbar-menu-btn {
-    display: block;
-  }
-}
-/* ROLE TOGGLE BUTTON — NEON GLASS */
-.role-toggle-btn {
-  width: 120px;
-  padding: 10px 18px;
-  background: rgb(0, 145, 255);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 40px;
-  color: #fff;
-  font-weight: 600;
-  text-shadow: 0px 0px 10px white;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(0, 170, 255, 0.3);
-}
-
-/* ICON STYLE */
-.role-toggle-btn .toggle-icon {
-  font-size: 18px;
-  color: #84edfb;
-}
-
-/* HOVER EFFECT */
-.role-toggle-btn:hover {
-  background: rgb(0, 85, 255);
-  box-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
-  transform: scale(1.05);
-}
-
-/* SIDEBAR VERSION (OPTIONAL) */
-.sidebar-toggle {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-  justify-content: center;
-}
-/* Glassmorphism Navbar */
-.glass-nav {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 25px rgba(0, 200, 255, 0.2);
-}
-
-/* Neon Role Toggle Button */
-.neon-btn {
-  padding: 10px 18px;
-  border-radius: 30px;
-  border: none;
-  background: rgba(0, 200, 255, 0.2);
-  color: white;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 180, 255, 0.6);
-}
-
-.neon-btn:hover {
-  background: rgba(0, 200, 255, 0.35);
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 200, 255, 1);
-}
-
-/* Animated Hamburger Button */
-.hamburger-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: white;
   position: relative;
-  width: 40px;
-  height: 40px;
 }
 
-.hamburger-btn .close-icon {
-  display: none;
+/* ------------------------------------------------------
+   MENU BUTTON ON LEFT
+------------------------------------------------------ */
+.navbar-menu-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #0057c2;
+  cursor: pointer;
+  z-index: 10;
+  margin-right: 10px;
 }
 
-.hamburger-btn.open .bar-icon {
-  display: none;
+/* ------------------------------------------------------
+   CENTER TITLE
+------------------------------------------------------ */
+.navbar-brand span {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: 700;
+  color: #0057c2;
+  text-decoration: none;
+  pointer-events: none; /* Prevent clicking */
 }
 
-.hamburger-btn.open .close-icon {
-  display: block;
+/* ------------------------------------------------------
+   RIGHT-SIDE ICON
+------------------------------------------------------ */
+.navbar-profile-icon {
+  font-size: 26px;
+  color: #0057c2;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
 }
+
+/* ------------------------------------------------------
+   ROLE SWITCH BUTTON (Login Pages Only)
+------------------------------------------------------ */
+.role-toggle-btn {
+  background: #0057c2;
+  border: none;
+  margin-right: 100%;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.role-toggle-btn:hover {
+  background: #004399;
+}
+
+.toggle-icon {
+  font-size: 16px;
+}
+/* ================================
+   OVERLAY
+================================ */
 .sidebar-overlay {
   position: fixed;
-  width: 0;
-  height: 100vh;
-  left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
-  overflow: hidden;
-  transition: width 0.3s ease;
-  z-index: 9999;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.063);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
 }
 
 .sidebar-overlay.show {
-  width: 100%;
+  opacity: 1;
+  visibility: visible;
 }
 
+/* ================================
+   SLIDE-IN SIDEBAR
+================================ */
 .sidebar-glass {
+  position: absolute;
+  top: 0;
+  left: -320px;
   width: 300px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.15);
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(20px);
+  background: #ffffff;
+  border-radius: 0 18px 18px 0;
   padding: 20px;
-  transform: translateX(-280px);
-  transition: 0.35s ease-out;
+  box-shadow: 4px 0px 25px rgba(0, 0, 0, 0.12);
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
+/* Slide animation */
 .sidebar-overlay.show .sidebar-glass {
-  transform: translateX(0);
-}
-.sidebar-header{
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-.sidebar-menu li {
-  padding: 14px;
-  font-size: 18px;
-  color: white;
-  margin: 10px 0;
-  font-weight: bolder;
-  text-shadow: 0px 0px 20px rgb(255, 255, 255);
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: 0.25s ease;
+  left: 0;
 }
 
-.sidebar-menu li:hover {
-  background: rgba(255, 255, 255, 0.25);
+/* ================================
+   HEADER INSIDE SIDEBAR
+================================ */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b3a82;
+}
+
+.close-sidebar-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0b3a82;
+}
+
+/* ================================
+   MENU ITEMS (FASTAG STYLE)
+================================ */
+.sidebar-menu-fastag {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+}
+
+.sidebar-menu-fastag li {
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+/* ============================
+   ✨ AWESOME GLOWING MENU CARD
+============================= */
+
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+  /* 🔥 Base Glow Animation */
+}
+
+/* ============================
+   📱 MOBILE SAFE
+============================= */
+@media (max-width: 768px) {
+  .menu-card {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+}
+
+.menu-card:hover {
+  background: #e8f1ff;
   transform: translateX(6px);
 }
 
-.logout-btn {
-  background: rgba(255, 0, 0, 0.4);
+.menu-icon {
+  font-size: 20px;
+  color: #0e47a1;
 }
 
-.logout-btn:hover {
-  background: rgba(255, 0, 0, 0.6);
-}
-/* 🔥 MENU BUTTON — Neon Glass Style */
-.navbar-menu-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: #00bfff;
-  box-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000000;
-  text-shadow: 0px 0px 5px rgb(0, 0, 0);
-  font-size: 27px;
-  transition: all 0.3s ease;
-  position: relative;
+/* Logout Style */
+.logout {
+  color: #d60035 !important;
 }
 
-/* Hover Glow */
-.navbar-menu-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 14px rgba(0, 200, 255, 0.8);
-  background: rgb(255, 255, 255);
-}
-
-/* 🔄 ICON SWAP ANIMATION */
-.bar-icon,
-.close-icon {
-  position: absolute;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-/* Default: show hamburger */
-.navbar-menu-btn .bar-icon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-
-/* Default: hide close icon */
-.navbar-menu-btn .close-icon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.3);
-}
-
-/* When menu is open → Swap icons smoothly */
-.navbar-menu-btn.open .bar-icon {
-  opacity: 0;
-  transform: rotate(90deg) scale(0.3);
-}
-
-.navbar-menu-btn.open .close-icon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-
-/* ❤️ Optional: pulsing glow when sidebar open */
-.navbar-menu-btn.open {
-  box-shadow: 0 0 18px rgba(0, 220, 255, 1);
-}
-.close-sidebar-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: #00bfff;
-  box-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000000;
-  text-shadow: 0px 0px 5px rgb(0, 0, 0);
-  font-size: 27px;
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 20px;
-  right: 10px;
+.logout .menu-icon {
+  color: #d60035 !important;
 }
