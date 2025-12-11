@@ -2144,389 +2144,398 @@ export default function OwnerDashboard() {
   return (
     <div className="container mt-5 mb-2">
       {activeSection === "transport" && (
-        <div
-          id="transportSection"
-          className="p-4 rounded shadow-lg mb-5"
-          style={{ background: "#E8F6F3", transition: "all 0.3s ease" }}
-        >
-          <h2 className="fw-bolder mb-3 align-items-center gap-2 text-black">
+        <>
+          <h2 className="fw-bolder mb-3 align-items-center gap-2 text-info ">
             <FaTruckLoading
               size={27}
               style={{ marginRight: "15px", marginTop: "-5px" }}
             />{" "}
             TRANSPORT
           </h2>
-          <div className="d-flex flex-wrap gap-3">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Enter Transport Name"
-              value={transportName}
-              onChange={(e) => setTransportName(e.target.value)}
-              required
-            />
+          <div
+            id="transportSection"
+            className="p-4 rounded shadow-lg mb-5"
+            style={{ background: "#E8F6F3", transition: "all 0.3s ease" }}
+          >
+            <div className="d-flex flex-wrap gap-3">
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                placeholder="Enter Transport Name"
+                value={transportName}
+                onChange={(e) => setTransportName(e.target.value)}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Enter Vehicle Number"
-              value={transportVehicle}
-              onChange={(e) => setTransportVehicle(e.target.value)}
-              required
-            />
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                placeholder="Enter Vehicle Number"
+                value={transportVehicle}
+                onChange={(e) => setTransportVehicle(e.target.value)}
+                required
+              />
 
-            <button
-              className="btn btn-primary btn-lg d-flex align-items-center gap-2 w-50 justify-content-center fw-bolder m-auto"
-              onClick={handleAddTransport}
-            >
-              <FaPlus size={20} /> Add
-            </button>
-          </div>
-          {transports.length > 0 ? (
-            <table className="table table-bordered table-hover mt-4">
-              <thead className="table-dark">
-                <tr>
-                  <th>Transport Name</th>
-                  <th>Vehicle Number</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(
-                  transports.reduce((acc, item) => {
-                    if (!acc[item.name]) acc[item.name] = [];
-                    acc[item.name].push(item.vehicle);
-                    return acc;
-                  }, {})
-                ).map(([name, vehicles], i) => (
-                  <React.Fragment key={i}>
-                    {vehicles.map((vehicle, index) => (
-                      <tr key={index}>
-                        {index === 0 && (
-                          <td
-                            rowSpan={vehicles.length}
-                            className="fw-bold align-middle text-center"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => handleShowTransportDetails(name)}
-                          >
-                            {name}
-                          </td>
-                        )}
-                        <td
-                          className="fw-bold align-middle text-center"
-                          style={{
-                            cursor: "pointer",
-                            color: "#0078ff",
-                            textDecoration: "underline",
-                          }}
-                          onClick={() => handleShowPopup(vehicle)}
-                        >
-                          {vehicle}
-                        </td>
-                        <td className="text-center d-flex justify-content-center align-items-center">
-                          <button
-                            className="btn btn-outline-primary btn-sm m-2"
-                            onClick={() => handleOpenAddVehiclePopup(name)}
-                          >
-                            <FaPlus />
-                          </button>
-                          <button
-                            className="btn btn-outline-danger btn-sm m-2"
-                            onClick={() =>
-                              confirmTransportDelete(name, vehicle)
-                            }
-                          >
-                            <FaTrash size={18} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p className="text-center fw-bolder text-danger mt-4">
-              NO TRANSPORTS ADDED!
-            </p>
-          )}
-          {showAddVehiclePopup && (
-            <div
-              className="popup-overlay"
-              onClick={(e) => {
-                if (e.target.classList.contains("popup-overlay"))
-                  setShowAddVehiclePopup(false);
-              }}
-            >
-              <div className="popup-card">
-                <h4 className="fw-bold mb-3 text-center text-primary">
-                  Add Vehicle to{" "}
-                  <span className="text-dark">{currentTransportName}</span>
-                </h4>
-                <input
-                  type="text"
-                  className="form-control form-control-lg mb-3"
-                  placeholder="Enter vehicle number"
-                  value={newVehicleInput}
-                  onChange={(e) => setNewVehicleInput(e.target.value)}
-                  autoFocus
-                />
-                <div className="d-flex justify-content-center gap-3">
-                  <button
-                    className="btn btn-success btn-lg px-4"
-                    onClick={handleAddVehicleToTransport}
-                  >
-                    Add
-                  </button>
-                  <button
-                    className="btn btn-secondary btn-lg px-4"
-                    onClick={() => setShowAddVehiclePopup(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-          {showPopup && (
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: "rgba(0,0,0,0.6)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-              <div
-                className="card p-4"
-                style={{ width: "600px", maxHeight: "90vh", overflowY: "auto" }}
+              <button
+                className="btn btn-primary btn-lg d-flex align-items-center gap-2 w-50 justify-content-center fw-bolder m-auto"
+                onClick={handleAddTransport}
               >
-                <h4 className="mb-3">Transaction Details</h4>
-                {selectedVehicleData.length > 0 ? (
-                  (() => {
-                    // ⭐ SORT ASCENDING — oldest first, newest last
-                    // ⭐ REMOVE PENDING_CLEARED ROWS + SORT ASC
-                    const sortedPopupData = selectedVehicleData
-                      .filter(
-                        (txn) =>
-                          txn.transactionType?.toUpperCase() !==
-                          "PENDING_CLEARED"
-                      )
-                      .sort(
-                        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-                      );
-
-                    return (
-                      <table className="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Vehicle Number</th>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Payment</th>
-                            <th>Amount</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {sortedPopupData.map((txn, i) => {
-                            const pay = txn.paymentType?.toUpperCase();
-
-                            const amountColor =
-                              pay === "CASH" || pay === "GPAY/PHONE PAY"
-                                ? "green"
-                                : pay === "PENDING" || pay === "EXP"
-                                ? "red"
-                                : "black";
-
-                            return (
-                              <tr key={i}>
-                                <td>{txn.vehicleNumber}</td>
-                                <td style={{ cursor: "pointer" }}>
-                                  {editingDateIndex === i ? (
-                                    <div
-                                      className="d-flex align-items-center gap-2"
-                                      style={{ minWidth: "260px" }}
-                                    >
-                                      {/* Editable date input */}
-                                      <input
-                                        type="datetime-local"
-                                        className="form-control form-control-sm"
-                                        style={{ width: "65%" }}
-                                        value={tempDate}
-                                        onChange={(e) =>
-                                          setTempDate(e.target.value)
-                                        }
-                                        autoFocus
-                                      />
-
-                                      {/* OK BUTTON */}
-                                      <button
-                                        className="btn btn-success btn-sm px-3"
-                                        style={{ fontWeight: "bold" }}
-                                        onClick={() => handleConfirmDate(i)}
-                                      >
-                                        ✓
-                                      </button>
-
-                                      {/* CANCEL BUTTON */}
-                                      <button
-                                        className="btn btn-outline-danger btn-sm px-3"
-                                        style={{ fontWeight: "bold" }}
-                                        onClick={() =>
-                                          setEditingDateIndex(null)
-                                        }
-                                      >
-                                        ✕
-                                      </button>
-                                    </div>
-                                  ) : (
-                                    <span
-                                      onClick={() =>
-                                        handleStartEdit(txn.createdAt, i)
-                                      }
-                                      style={{
-                                        display: "inline-block",
-                                        width: "100%",
-                                      }}
-                                    >
-                                      {new Date(txn.createdAt).toLocaleString()}
-                                    </span>
-                                  )}
-                                </td>
-
-                                <td>{txn.transactionType}</td>
-                                <td>{txn.paymentType}</td>
-                                <td
-                                  style={{
-                                    color: amountColor,
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  ₹{parseFloat(txn.amount).toFixed(2)}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    );
-                  })()
-                ) : (
-                  <p>No transactions found.</p>
-                )}
-
-                {/* DATE FILTERS */}
-                <div className="d-flex gap-3 mb-3">
-                  <div className="flex-grow-1">
-                    <label className="form-label fw-bold">From Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={transportFromDate}
-                      required
-                      onChange={(e) => {
-                        setTransportFromDate(e.target.value);
-
-                        // Apply filter live
-                        const vehicles = transports
-                          .filter((t) => t.name === selectedTransportName)
-                          .map((t) => t.vehicle);
-
-                        let filtered = transactions.filter(
-                          (t) =>
-                            vehicles.includes(t.vehicleNumber) &&
-                            t.transactionType?.toUpperCase() !==
-                              "PENDING_CLEARED"
-                        );
-
-                        if (e.target.value) {
-                          const from = new Date(e.target.value);
-                          filtered = filtered.filter(
-                            (txn) => new Date(txn.createdAt) >= from
-                          );
-                        }
-
-                        if (transportToDate) {
-                          const to = new Date(transportToDate);
-                          to.setHours(23, 59, 59, 999);
-                          filtered = filtered.filter(
-                            (txn) => new Date(txn.createdAt) <= to
-                          );
-                        }
-
-                        setSelectedVehicleData(filtered);
-                      }}
-                    />
+                <FaPlus size={20} /> Add
+              </button>
+            </div>
+            {transports.length > 0 ? (
+              <table className="table table-bordered table-hover mt-4">
+                <thead className="table-dark">
+                  <tr>
+                    <th>Transport Name</th>
+                    <th>Vehicle Number</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(
+                    transports.reduce((acc, item) => {
+                      if (!acc[item.name]) acc[item.name] = [];
+                      acc[item.name].push(item.vehicle);
+                      return acc;
+                    }, {})
+                  ).map(([name, vehicles], i) => (
+                    <React.Fragment key={i}>
+                      {vehicles.map((vehicle, index) => (
+                        <tr key={index}>
+                          {index === 0 && (
+                            <td
+                              rowSpan={vehicles.length}
+                              className="fw-bold align-middle text-center"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => handleShowTransportDetails(name)}
+                            >
+                              {name}
+                            </td>
+                          )}
+                          <td
+                            className="fw-bold align-middle text-center"
+                            style={{
+                              cursor: "pointer",
+                              color: "#0078ff",
+                              textDecoration: "underline",
+                            }}
+                            onClick={() => handleShowPopup(vehicle)}
+                          >
+                            {vehicle}
+                          </td>
+                          <td className="text-center d-flex justify-content-center align-items-center">
+                            <button
+                              className="btn btn-outline-primary btn-sm m-2"
+                              onClick={() => handleOpenAddVehiclePopup(name)}
+                            >
+                              <FaPlus />
+                            </button>
+                            <button
+                              className="btn btn-outline-danger btn-sm m-2"
+                              onClick={() =>
+                                confirmTransportDelete(name, vehicle)
+                              }
+                            >
+                              <FaTrash size={18} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="text-center fw-bolder text-danger mt-4">
+                NO TRANSPORTS ADDED!
+              </p>
+            )}
+            {showAddVehiclePopup && (
+              <div
+                className="popup-overlay"
+                onClick={(e) => {
+                  if (e.target.classList.contains("popup-overlay"))
+                    setShowAddVehiclePopup(false);
+                }}
+              >
+                <div className="popup-card">
+                  <h4 className="fw-bold mb-3 text-center text-primary">
+                    Add Vehicle to{" "}
+                    <span className="text-dark">{currentTransportName}</span>
+                  </h4>
+                  <input
+                    type="text"
+                    className="form-control form-control-lg mb-3"
+                    placeholder="Enter vehicle number"
+                    value={newVehicleInput}
+                    onChange={(e) => setNewVehicleInput(e.target.value)}
+                    autoFocus
+                  />
+                  <div className="d-flex justify-content-center gap-3">
+                    <button
+                      className="btn btn-success btn-lg px-4"
+                      onClick={handleAddVehicleToTransport}
+                    >
+                      Add
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-lg px-4"
+                      onClick={() => setShowAddVehiclePopup(false)}
+                    >
+                      Cancel
+                    </button>
                   </div>
-
-                  <div className="flex-grow-1">
-                    <label className="form-label fw-bold">To Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={transportToDate}
-                      min={transportFromDate}
-                      required
-                      onChange={(e) => {
-                        setTransportToDate(e.target.value);
-
-                        const vehicles = transports
-                          .filter((t) => t.name === selectedTransportName)
-                          .map((t) => t.vehicle);
-
-                        let filtered = transactions.filter((t) =>
-                          vehicles.includes(t.vehicleNumber)
-                        );
-
-                        if (transportFromDate) {
-                          const from = new Date(transportFromDate);
-                          filtered = filtered.filter(
-                            (txn) => new Date(txn.createdAt) >= from
-                          );
-                        }
-
-                        if (e.target.value) {
-                          const to = new Date(e.target.value);
-                          to.setHours(23, 59, 59, 999);
-                          filtered = filtered.filter(
-                            (txn) => new Date(txn.createdAt) <= to
-                          );
-                        }
-
-                        setSelectedVehicleData(filtered);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="d-flex justify-content-between mt-3">
-                  {/* Export PDF Button */}
-                  <button
-                    className="btn btn-danger me-3"
-                    onClick={handleTransportExportPDF}
-                  >
-                    <FaFilePdf className="me-2" />
-                    Export PDF
-                  </button>
-
-                  {/* Close Button */}
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setShowPopup(false)}
-                  >
-                    Close
-                  </button>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+            {showPopup && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: "rgba(0,0,0,0.6)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  zIndex: 9999,
+                }}
+              >
+                <div
+                  className="card p-4"
+                  style={{
+                    width: "600px",
+                    maxHeight: "90vh",
+                    overflowY: "auto",
+                  }}
+                >
+                  <h4 className="mb-3">Transaction Details</h4>
+                  {selectedVehicleData.length > 0 ? (
+                    (() => {
+                      // ⭐ SORT ASCENDING — oldest first, newest last
+                      // ⭐ REMOVE PENDING_CLEARED ROWS + SORT ASC
+                      const sortedPopupData = selectedVehicleData
+                        .filter(
+                          (txn) =>
+                            txn.transactionType?.toUpperCase() !==
+                            "PENDING_CLEARED"
+                        )
+                        .sort(
+                          (a, b) =>
+                            new Date(a.createdAt) - new Date(b.createdAt)
+                        );
+
+                      return (
+                        <table className="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Vehicle Number</th>
+                              <th>Date</th>
+                              <th>Type</th>
+                              <th>Payment</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {sortedPopupData.map((txn, i) => {
+                              const pay = txn.paymentType?.toUpperCase();
+
+                              const amountColor =
+                                pay === "CASH" || pay === "GPAY/PHONE PAY"
+                                  ? "green"
+                                  : pay === "PENDING" || pay === "EXP"
+                                  ? "red"
+                                  : "black";
+
+                              return (
+                                <tr key={i}>
+                                  <td>{txn.vehicleNumber}</td>
+                                  <td style={{ cursor: "pointer" }}>
+                                    {editingDateIndex === i ? (
+                                      <div
+                                        className="d-flex align-items-center gap-2"
+                                        style={{ minWidth: "260px" }}
+                                      >
+                                        {/* Editable date input */}
+                                        <input
+                                          type="datetime-local"
+                                          className="form-control form-control-sm"
+                                          style={{ width: "65%" }}
+                                          value={tempDate}
+                                          onChange={(e) =>
+                                            setTempDate(e.target.value)
+                                          }
+                                          autoFocus
+                                        />
+
+                                        {/* OK BUTTON */}
+                                        <button
+                                          className="btn btn-success btn-sm px-3"
+                                          style={{ fontWeight: "bold" }}
+                                          onClick={() => handleConfirmDate(i)}
+                                        >
+                                          ✓
+                                        </button>
+
+                                        {/* CANCEL BUTTON */}
+                                        <button
+                                          className="btn btn-outline-danger btn-sm px-3"
+                                          style={{ fontWeight: "bold" }}
+                                          onClick={() =>
+                                            setEditingDateIndex(null)
+                                          }
+                                        >
+                                          ✕
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <span
+                                        onClick={() =>
+                                          handleStartEdit(txn.createdAt, i)
+                                        }
+                                        style={{
+                                          display: "inline-block",
+                                          width: "100%",
+                                        }}
+                                      >
+                                        {new Date(
+                                          txn.createdAt
+                                        ).toLocaleString()}
+                                      </span>
+                                    )}
+                                  </td>
+
+                                  <td>{txn.transactionType}</td>
+                                  <td>{txn.paymentType}</td>
+                                  <td
+                                    style={{
+                                      color: amountColor,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    ₹{parseFloat(txn.amount).toFixed(2)}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      );
+                    })()
+                  ) : (
+                    <p>No transactions found.</p>
+                  )}
+
+                  {/* DATE FILTERS */}
+                  <div className="d-flex gap-3 mb-3">
+                    <div className="flex-grow-1">
+                      <label className="form-label fw-bold">From Date</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={transportFromDate}
+                        required
+                        onChange={(e) => {
+                          setTransportFromDate(e.target.value);
+
+                          // Apply filter live
+                          const vehicles = transports
+                            .filter((t) => t.name === selectedTransportName)
+                            .map((t) => t.vehicle);
+
+                          let filtered = transactions.filter(
+                            (t) =>
+                              vehicles.includes(t.vehicleNumber) &&
+                              t.transactionType?.toUpperCase() !==
+                                "PENDING_CLEARED"
+                          );
+
+                          if (e.target.value) {
+                            const from = new Date(e.target.value);
+                            filtered = filtered.filter(
+                              (txn) => new Date(txn.createdAt) >= from
+                            );
+                          }
+
+                          if (transportToDate) {
+                            const to = new Date(transportToDate);
+                            to.setHours(23, 59, 59, 999);
+                            filtered = filtered.filter(
+                              (txn) => new Date(txn.createdAt) <= to
+                            );
+                          }
+
+                          setSelectedVehicleData(filtered);
+                        }}
+                      />
+                    </div>
+
+                    <div className="flex-grow-1">
+                      <label className="form-label fw-bold">To Date</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={transportToDate}
+                        min={transportFromDate}
+                        required
+                        onChange={(e) => {
+                          setTransportToDate(e.target.value);
+
+                          const vehicles = transports
+                            .filter((t) => t.name === selectedTransportName)
+                            .map((t) => t.vehicle);
+
+                          let filtered = transactions.filter((t) =>
+                            vehicles.includes(t.vehicleNumber)
+                          );
+
+                          if (transportFromDate) {
+                            const from = new Date(transportFromDate);
+                            filtered = filtered.filter(
+                              (txn) => new Date(txn.createdAt) >= from
+                            );
+                          }
+
+                          if (e.target.value) {
+                            const to = new Date(e.target.value);
+                            to.setHours(23, 59, 59, 999);
+                            filtered = filtered.filter(
+                              (txn) => new Date(txn.createdAt) <= to
+                            );
+                          }
+
+                          setSelectedVehicleData(filtered);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-between mt-3">
+                    {/* Export PDF Button */}
+                    <button
+                      className="btn btn-danger me-3"
+                      onClick={handleTransportExportPDF}
+                    >
+                      <FaFilePdf className="me-2" />
+                      Export PDF
+                    </button>
+
+                    {/* Close Button */}
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </>
       )}
       {activeSection === "search" && (
         <div
@@ -2534,7 +2543,7 @@ export default function OwnerDashboard() {
           className="mb-4 position-relative mt-3 d-flex flex-column"
           ref={inputRef}
         >
-          <h2 className=" fw-bolder">
+          <h2 className=" fw-bolder text-danger">
             <FaSearch
               size={27}
               style={{ marginRight: "15px", marginTop: "-5px" }}
@@ -2543,7 +2552,7 @@ export default function OwnerDashboard() {
           </h2>
           <div className="mb-4 position-relative mt-3 p-3 bg-light rounded shadow-sm">
             {/* Row 1 */}
-            <div className="mb-3 mt-4">
+            <div className="mb-3">
               <label className="form-label fw-bold">
                 <FaUserAlt className="mb-1 me-2 text-primary" />
                 Search Worker
@@ -2743,7 +2752,7 @@ export default function OwnerDashboard() {
       {activeSection === "transactions" && (
         <div id="transactionsSection">
           {/* Transactions Table */}
-          <h2 className="mt-4 text-uppercase fw-bolder">
+          <h2 className="mt-4 text-uppercase fw-bolder text-success mb-4">
             <FaMoneyBillAlt
               color="green"
               size={27}
@@ -2821,8 +2830,22 @@ export default function OwnerDashboard() {
                         <td>{formattedDateTime}</td>
                         <td>{t.vehicleNumber}</td>
                         <td>{t.transactionType}</td>
-                        <td>{t.paymentType}</td>
-                        <td>{parseFloat(t.amount).toFixed(2)}</td>
+                        <td
+                          className={
+                            t.paymentType === "CASH"
+                              ? "amt-green"
+                              : t.paymentType === "GPAY/PHONE PAY"
+                              ? "amt-blue"
+                              : t.paymentType === "PENDING"
+                              ? "amt-red"
+                              : t.paymentType === "EXP"
+                              ? "amt-orange"
+                              : ""
+                          }
+                        >
+                          {t.paymentType}
+                        </td>
+                        <td>₹{parseFloat(t.amount).toFixed(2)}</td>
 
                         {/* DELETE BUTTON COLUMN */}
                         <td className="text-center">
@@ -2852,7 +2875,7 @@ export default function OwnerDashboard() {
       )}
       {activeSection === "worker" && (
         <div className="p-3 bg-light rounded shadow-sm mb-5" id="workerSection">
-          <h2 className="mt-5 text-uppercase fw-bolder">
+          <h2 className="mt-5 text-uppercase fw-bolder text-primary mb-4">
             <FaUserAlt
               size={27}
               style={{ marginRight: "15px", marginTop: "-5px" }}
