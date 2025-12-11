@@ -34,7 +34,7 @@ export default function WorkerDashboard({ worker }) {
   const [shiftType, setShiftType] = useState("");
   const [vehicleInputFocused, setVehicleInputFocused] = useState(false);
   const [profit, setProfit] = useState("");
-  const [activeSection, setActiveSection] = useState("banks");
+  const [activeSection, setActiveSection] = useState("totals");
   const location = useLocation();
 
   useEffect(() => {
@@ -739,14 +739,14 @@ export default function WorkerDashboard({ worker }) {
     <div className="container mt-5">
       <div className="d-flex justify-content-end mb-3">
         <button
-          className="btn btn-danger mx-3"
+          className="btn btn-danger mx-3 fw-bold"
           onClick={() => setShowLogoutModal(true)}
         >
           <FaClock style={{ marginRight: "8px" }} />
           Logout
         </button>
         <button
-          className="btn btn-warning"
+          className="btn btn-warning fw-bold"
           onClick={() => setShowLogoutModal("shift")}
         >
           <FaPowerOff style={{ marginRight: "8px" }} />
@@ -837,7 +837,7 @@ export default function WorkerDashboard({ worker }) {
       {/* Bank Balances */}
       {activeSection === "banks" && (
         <>
-          <h4 className="mt-4 text-uppercase fw-bolder">
+          <h4 className="mt-4 text-uppercase fw-bolder text-success mb-4">
             <FaRegMoneyBillAlt
               size={27}
               color="green"
@@ -913,7 +913,7 @@ export default function WorkerDashboard({ worker }) {
       {activeSection === "totals" && (
         <>
           <div className="totals">
-            <h4 className="mt-4 text-uppercase fw-bolder">
+            <h4 className="mt-4 text-uppercase fw-bolder text-success mb-4">
               <FaMoneyBill
                 size={27}
                 color="green"
@@ -940,7 +940,7 @@ export default function WorkerDashboard({ worker }) {
           </div>
 
           {/* Transaction Form */}
-          <h4 className="mt-4 text-uppercase fw-bolder">
+          <h4 className="mt-4 text-uppercase fw-bolder text-info">
             <FaPlus
               size={27}
               style={{ marginRight: "10px", marginTop: "-5px" }}
@@ -1081,7 +1081,7 @@ export default function WorkerDashboard({ worker }) {
       {activeSection === "transactions" && (
         <>
           {/* Transaction Table */}
-          <h4 className=" text-uppercase fw-bolder">
+          <h4 className=" text-uppercase fw-bolder text-primary mb-4">
             <FaSearch
               size={27}
               style={{ marginRight: "10px", marginTop: "-3px" }}
@@ -1104,7 +1104,21 @@ export default function WorkerDashboard({ worker }) {
                 <tr key={t._id || i}>
                   <td>{t.vehicleNumber}</td>
                   <td>{t.transactionType}</td>
-                  <td>{t.paymentType}</td>
+                  <td
+                    className={
+                      t.paymentType === "CASH"
+                        ? "amt-green"
+                        : t.paymentType === "GPAY/PHONE PAY"
+                        ? "amt-blue"
+                        : t.paymentType === "PENDING"
+                        ? "amt-red"
+                        : t.paymentType === "EXP"
+                        ? "amt-orange"
+                        : ""
+                    }
+                  >
+                    {t.paymentType}
+                  </td>
                   <td>₹{parseFloat(t.amount).toFixed(2)}</td>
                   <td className="text-center">
                     <button
