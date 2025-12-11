@@ -407,3 +407,23 @@ input:not(:placeholder-shown) + label {
 .text-end {
   text-align: right;
 }
+/* Amount Color Codes */
+.amt-green {
+  color: #15a34a !important; /* CASH */
+  font-weight: 700;
+}
+
+.amt-blue {
+  color: #2563eb !important; /* GPAY */
+  font-weight: 700;
+}
+
+.amt-red {
+  color: #dc2626 !important; /* PENDING */
+  font-weight: 700;
+}
+
+.amt-orange {
+  color: #ea580c !important; /* EXP */
+  font-weight: 700;
+}
