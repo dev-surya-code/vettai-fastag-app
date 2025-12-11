@@ -194,7 +194,7 @@
   position: fixed;
   top: 18px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgb(0, 0, 0);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 8px 14px;
@@ -224,7 +224,7 @@
   left: 0;
   width: 0;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.203);
   backdrop-filter: blur(3px);
   overflow: hidden;
   transition: width 0.3s ease;
@@ -239,11 +239,11 @@
   position: absolute;
   top: 0;
   left: -270px;
-  width: 270px;
+  width: 350px;
   height: 100%;
   padding: 25px;
   border-radius: 0 20px 20px 0;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgb(255, 255, 255);
   backdrop-filter: blur(18px);
   border-right: 2px solid rgba(255, 255, 255, 0.25);
   transition: left 0.35s ease;
@@ -258,7 +258,7 @@
   font-weight: 700;
   color: white;
   margin-bottom: 20px;
-  text-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-menu {
@@ -272,7 +272,7 @@
   padding: 12px 14px;
   margin-bottom: 12px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.362);
   color: white;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -294,4 +294,48 @@
 
 .logout-btn:hover {
   background: rgba(255, 0, 0, 0.4) !important;
+}
+.gradient-text-1 {
+  background: linear-gradient(90deg, #004e92, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+.gradient-text-2 {
+  background: linear-gradient(90deg, #8e2de2, #ff6bb5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+.gradient-text-4 {
+  background: linear-gradient(90deg, #f7b733, #fc4a1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+.gradient-text-3 {
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+/* Amount Color Codes */
+.amt-green {
+  color: #15a34a !important; /* CASH */
+  font-weight: 700;
+}
+
+.amt-blue {
+  color: #2563eb !important; /* GPAY */
+  font-weight: 700;
+}
+
+.amt-red {
+  color: #dc2626 !important; /* PENDING */
+  font-weight: 700;
+}
+
+.amt-orange {
+  color: #ea580c !important; /* EXP */
+  font-weight: 700;
 }
