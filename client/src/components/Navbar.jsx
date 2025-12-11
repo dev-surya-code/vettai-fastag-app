@@ -9,6 +9,8 @@ import {
   FaTruckLoading,
   FaUserTie,
   FaRegMoneyBillAlt,
+  FaUserShield,
+  FaUserCircle,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "../css/Navbar.css";
@@ -51,15 +53,37 @@ export default function Navbar() {
       }
     });
   };
+  const isLoginPage =
+    location.pathname === "/owner/login" ||
+    location.pathname === "/worker/login";
 
   return (
     <>
       <nav className="custom-navbar">
         <div className="navbar-container">
+          {/* ⭐ MENU BUTTON ON LEFT ALWAYS (only in dashboards) */}
+          {(isOwnerDashboard || isWorkerDashboard) && (
+            <button
+              className="navbar-menu-btn"
+              onClick={() => setMobileSidebarOpen(true)}
+              style={{ marginRight: "10px" }}
+            >
+              ☰
+            </button>
+          )}
+
+          {/* ⭐ CENTER TITLE LIKE FASTag App */}
           <Link to="/" className="navbar-brand">
-            <FaCar className="brand-icon" />
             <span>VETTAI FASTAG</span>
           </Link>
+
+          {/* ⭐ RIGHT SIDE ICON (OPTIONAL FUTURE PROFILE) */}
+          <FaCar
+            className="navbar-profile-icon"
+            onClick={() => {
+              if (isOwnerDashboard) navigate("/owner/login");
+            }}
+          />
 
           {/* ⭐ SHOW ROLE TOGGLE ONLY ON LOGIN PAGES */}
           {!isOwnerDashboard &&
@@ -67,20 +91,9 @@ export default function Navbar() {
             !isOwnerLoggedIn &&
             !isWorkerLoggedIn && (
               <button className="role-toggle-btn" onClick={toggleRole}>
-                <FaUserTie className="toggle-icon" />
-                {role === "owner" ? "Worker" : "Owner"}
+                {role === "owner" ? <FaUserCircle /> : <FaUserShield />}
               </button>
             )}
-
-          {/* ⭐ MENU BUTTON — SHOW INSIDE OWNER OR WORKER DASHBOARD ONLY */}
-          {(isOwnerDashboard || isWorkerDashboard) && (
-            <button
-              className="navbar-menu-btn"
-              onClick={() => setMobileSidebarOpen(true)}
-            >
-              ☰
-            </button>
-          )}
         </div>
       </nav>
 
@@ -95,7 +108,7 @@ export default function Navbar() {
       >
         <div className="sidebar-glass animated-sidebar">
           <div className="sidebar-header">
-            <h3 className="sidebar-title">Menu</h3>
+            <h3 className="sidebar-title text-black">Menu</h3>
             <button
               className="close-sidebar-btn"
               onClick={() => setMobileSidebarOpen(false)}
@@ -104,8 +117,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          <ul className="sidebar-menu">
-            {/* ⭐ OWNER DASHBOARD MENU */}
+          <ul className="sidebar-menu-fastag">
+            {/* OWNER MENU */}
             {isOwnerDashboard && (
               <>
                 <li
@@ -116,7 +129,10 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaTruckLoading /> Transport
+                  <div className="menu-card fw-bold">
+                    <FaTruckLoading className="menu-icon" />
+                    <span>Transport</span>
+                  </div>
                 </li>
 
                 <li
@@ -125,7 +141,10 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaSearch /> Search Vehicle
+                  <div className="menu-card fw-bold">
+                    <FaSearch className="menu-icon" />
+                    <span>Search Vehicle</span>
+                  </div>
                 </li>
 
                 <li
@@ -136,7 +155,10 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaMoneyBill /> Transactions
+                  <div className="menu-card fw-bold">
+                    <FaMoneyBill className="menu-icon" />
+                    <span>Transactions</span>
+                  </div>
                 </li>
 
                 <li
@@ -145,16 +167,22 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaUserTie /> Worker Login
+                  <div className="menu-card fw-bold">
+                    <FaUserTie className="menu-icon" />
+                    <span>Worker Login</span>
+                  </div>
                 </li>
 
-                <li className="logout-btn" onClick={handleLogout}>
-                  <FaSignOutAlt /> Logout
+                <li className="logout-btn-fastag" onClick={handleLogout}>
+                  <div className="menu-card logout fw-bold">
+                    <FaSignOutAlt className="menu-icon logout" />
+                    <span>Logout</span>
+                  </div>
                 </li>
               </>
             )}
 
-            {/* ⭐ WORKER DASHBOARD MENU */}
+            {/* WORKER MENU */}
             {isWorkerDashboard && (
               <>
                 <li
@@ -163,7 +191,10 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaRegMoneyBillAlt /> Bank Balances
+                  <div className="menu-card fw-bold">
+                    <FaRegMoneyBillAlt className="menu-icon" />
+                    <span>Bank Balances</span>
+                  </div>
                 </li>
 
                 <li
@@ -174,8 +205,12 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaMoneyBill /> Totals Summary
+                  <div className="menu-card fw-bold">
+                    <FaMoneyBill className="menu-icon" />
+                    <span>Totals Summary</span>
+                  </div>
                 </li>
+
                 <li
                   onClick={() => {
                     navigate("/worker/dashboard", {
@@ -184,7 +219,10 @@ export default function Navbar() {
                     setMobileSidebarOpen(false);
                   }}
                 >
-                  <FaSearch /> View Transactions
+                  <div className="menu-card fw-bold">
+                    <FaSearch className="menu-icon" />
+                    <span>View Transactions</span>
+                  </div>
                 </li>
               </>
             )}
